@@ -1,0 +1,79 @@
+
+/*
+nodeMcu Pin useable pin list _write 2020.12.13
+D0 GPIO16 (wakeUp Use & booting)
+D1 GPIO5 (I2C SDA)
+D2 GPIO4 (I2C SCL)
+D3 GPIO0 (warning)
+D4 GPIO2 (TXD1,Initial LED)
+3V3
+GND
+D5 GPIO14
+D6 GPIO12
+D7 GPIO13
+D8 GPIO15 (warning)
+RX
+TX
+GND
+3V3
+//위의 내용처럼 사용가능 핀수는 제한이 있으니
+//D1, D2, D5, D6, D7번 핀 범용으로 사용
+//i2c통신을 한다면 D1, D2핀을 써야 하고
+//warning핀은 주의해서 사용.
+
+//digitalWrite(5, HIGH);
+//윗글과 같이 사용한다면 D5번핀이 아니라 GPIO5번인 D1에 출력이 나감
+//#define motorSignal 14
+//윗글과 같이 D5번핀을 motorsignal로 쓰겠다 선언하여 사용
+
+#define motorSignal 14
+#define trigerSignal 12
+#define hallSensor 13
+#define motorEnable 15
+
+위와 같이 써도 되지만 더 직관성 있게 보기 편하게 고치자면
+
+#define motorSignal D5
+#define trigerSignal D6
+#define hallSensor D7
+#define motorEnable D8
+
+*/
+
+/*
+이번 쏘세요 프로젝트 포트 LED 테스트.
+D5 stepmotor signal
+D6 triger signal
+D7 hall sensor signal
+D8 stepMotorDriver Enable
+*/
+
+
+#define motorSignal D5
+#define trigerSignal D6
+#define hallSensor D7
+#define motorEnable D8
+
+void setup() {
+pinMode(motorSignal, OUTPUT);
+pinMode(trigerSignal, OUTPUT);
+pinMode(hallSensor, INPUT_PULLUP);
+pinMode(motorEnable, OUTPUT);
+}
+
+void on_off(int i){
+  digitalWrite(i, 1);
+  delay(500);
+  digitalWrite(i, 0);
+  delay(500);
+}
+
+void loop() {
+  on_off(motorSignal);
+  on_off(trigerSignal);
+  on_off(hallSensor);
+  on_off(motorEnable);
+  
+}
+
+
